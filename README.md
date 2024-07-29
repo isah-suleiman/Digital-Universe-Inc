@@ -32,3 +32,64 @@ Digital Universe Inc. aims to:
 2. Understand which features and content resonate most with different user segments.
 3. Tailor products and services to meet the unique preferences of various user groups.
 4. Continuously improve offerings based on real-time user feedback and data-driven insights.
+
+Scope Image
+
+## Data Importation
+**Creating a Date Table in Power BI**
+
+1. **Create Date Parameters:**
+   - **Start Date:** 
+     - Go to **Transform Data** > **Manage Parameters** > **New Parameter**.
+     - Name it "startDate", set type to **Date**, and input '2023/09/01'.
+   - **End Date:** 
+     - Repeat the above steps, name it "endDate", and input '2023/09/30'.
+
+2. **Generate Date Table:**
+   - Click **New Source** > **Blank Query** and rename it to "Date Table".
+   - In **Advanced Editor**, rename the source to "Duration".
+   - Calculate the number of days: 
+     ``` 
+     = Duration.Days(endDate - startDate) + 1 
+     ```
+   - List the dates: 
+     ``` 
+     = List.Dates(startDate, Duration, #duration(1, 0, 0, 0)) 
+     ```
+   - Convert to table: **Transform Tab** > **To Table** > **OK**.
+   - Rename it to "Date Table" and change the type to **Date**.
+**Note: The (1,0,0,0) means one day, zero hours, zero minutes and zero seconds**
+
+3. **Add Columns:**
+   - Go to **Add Column Tab** > **Date** and add **Year**, **Week of Month**, **Day**, **Name of Day**.
+   - Extract first 3 characters of day names: **Transform Tab** > **Extract** > **First Characters** > 3 > **OK**.
+   - Add "Day of Week" column.
+   - Create a custom column for week names:
+     ``` 
+     = "WK" & ([Week of Month]) 
+     ```
+   - This returned an error because 'WK' is a text and [Week of Month] is an integer. So to fix this I have to use the text.from function
+   ```
+   = "WK" & Text.From([Week of Month])
+   ```
+   - Click **Close and Apply**.
+
+5. **Sort and Finalize:**
+   - In **Table View**, sort **Day Name** by **Day of Week** and **Week Number** by **Week of Month**.
+   - Mark as date table: **Table Tools** > **Mark as Date Table** > **Date Column** > **Date Table** > **OK**.
+
+
+### Creating a Data Model and Performing Data Exploration in Power BI
+
+1. **Create Data Model:**
+   - Power BI automatically connects the `user-profile_data 2` table to the `Session_data 2` table via the `UserID` column.
+   - Connect the `Date` column in the `Session_data 2` table with the `Date Table`.
+
+2. **Data Exploration:**
+   - **Total Sessions Calculation:**
+     - Click **Enter Data** in the Home tab.
+     - Rename the table to `Measures Table`.
+     - Create a new measure to calculate total sessions:
+       ``` 
+       Total Sessions = COUNTROWS('Session_data 2') 
+       ```
