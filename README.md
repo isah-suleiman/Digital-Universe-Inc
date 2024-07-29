@@ -1,4 +1,6 @@
-# Digital-Universe-Inc
+# User Behaviour Analytics: Analyzing Digital Interactions to Optimize User Engagement & Experience at Digital Universe Inc.
+
+Specialization: Customer and Product Analytics
 
 ## Business Overview/Problem
 
