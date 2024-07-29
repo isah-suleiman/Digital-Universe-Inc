@@ -93,3 +93,93 @@ Scope Image
        ``` 
        Total Sessions = COUNTROWS('Session_data 2') 
        ```
+
+   - **Active Users in Previous Month:**
+     - Create a new measure:
+       ``` 
+       Active Users = COUNTROWS('user_profile_data 2') 
+       ```
+
+   - **Average Session Duration:**
+     - Create a new measure:
+       ``` 
+       Average Session Duration = AVERAGE('Session_data 2'[Duration]) 
+       ```
+
+   - **Average User Rating:**
+     - Create a new measure:
+       ``` 
+       Average Rating = AVERAGE('Session_data 2'[Rating]) 
+       ```
+
+   - **Bounce Rate Calculation:**
+     - Define bounce rate threshold:
+       ``` 
+       Bounce Defined = 30 
+       ```
+     - Create a DAX formula for bounce rate:
+       ``` 
+       Bounce Rate = DIVIDE(
+           COUNTROWS(FILTER('Session_data 2', 'Session_data 2'[Duration] < 'Measures Table'[Bounce Defined])),
+           COUNTROWS('Session_data 2')
+       ) 
+       ```
+
+   - **Most Popular Product Type:**
+     - Create a measure to find the most popular product:
+       ``` 
+       Most Popular Product Type = 
+       VAR TopProduct = 
+           TOPN(
+               1,
+               ADDCOLUMNS(
+                   VALUES('Session_data 2'[Product Type]),
+                   "ProductCount", CALCULATE(COUNTROWS('Session_data 2'))
+               ),
+               [ProductCount], DESC
+           )
+       RETURN 
+           MAXX(TopProduct, 'Session_data 2'[Product Type]) 
+       ```
+
+   - **Top Acquisition Channel:**
+     - Create a measure to find the top acquisition channel:
+       ``` 
+       Top Acquisition Channel = 
+       VAR TopChannel = 
+           TOPN(
+               1,
+               VALUES('Session_data 2'[Channel]),
+               COUNTROWS(FILTER('Session_data 2', 'Session_data 2'[Channel] = EARLIER('Session_data 2'[Channel])))
+           )
+       RETURN MAXX(TopChannel, [Channel]) 
+       ```
+
+- **Compare Subscribers and Churn Rate:**
+   - **Churned Users Calculation:**
+     ``` 
+     Churned Users = 
+     COUNTROWS(FILTER('user_profile_data 2',
+     'user_profile_data 2'[Aug_sub_type] = "Digital Universe+" && 'user_profile_data 2'[Sept_sub_type] = "Free"))
+     ```
+
+   - **Percentage Decrease in Churn Rate:**
+     ``` 
+     Percentage Decrease = DIVIDE([Aug Subscribed Users] - [Sept Subscribed Users], [Aug Subscribed Users])
+     ```
+
+- **Add Welcome Text:**
+   - Create a measure to display a greeting based on the time of day:
+     ``` 
+     Welcome Text = 
+     VAR hour = HOUR(NOW()) 
+     VAR Greeting = SWITCH(TRUE(), 
+         hour >= 0 && hour < 5, "Good Morning Team!", 
+         hour >= 5 && hour < 12, "Good Morning Team!", 
+         hour >= 12 && hour < 18, "Good Afternoon Team!", 
+         hour >= 18 && hour < 24, "Good Evening Team!") 
+     RETURN Greeting
+     ```
+
+- **Design Dashboard:**
+   - Use the calculated measures and welcome text to create an engaging and informative dashboard for stakeholders and team members.
