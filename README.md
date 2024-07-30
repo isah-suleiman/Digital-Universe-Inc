@@ -183,3 +183,107 @@ Scope Image
 
 - **Design Dashboard:**
    - Use the calculated measures and welcome text to create an engaging and informative dashboard for stakeholders and team members.
+
+Sure, here's a more concise and recruiter-friendly version of your process:
+
+## **Demography Page:**
+   - **Most Active User with Location:**
+     ``` 
+     MostActiveUserWithLocation = 
+     VAR MostActiveUserID = 
+         TOPN(
+             1,
+             VALUES('session_data 2'[UserID]),
+             COUNTROWS(FILTER('session_data 2', 'session_data 2'[UserID] = EARLIER('session_data 2'[UserID])))
+         )
+     VAR MostActiveUserName = 
+         LOOKUPVALUE('user_profile_data 2'[Name],
+         'user_profile_data 2'[UserID],
+         MAXX(MostActiveUserID, [UserID])
+     )
+     VAR UserLocation = 
+         LOOKUPVALUE(
+             'user_profile_data 2'[Location],
+             'user_profile_data 2'[UserID],
+             MAXX(MostActiveUserID, [UserID])
+         )
+     RETURN
+     MostActiveUserName & UNICHAR(10) & ", Location: " & UserLocation
+     ```
+
+   - **Most Active Location:**
+     ``` 
+     Most Active Location = FIRSTNONBLANK(TOPN(1, VALUES('user_profile_data 2'[Location]), [Average Session Duration]), 1)
+     ```
+
+   - **Subscribers by Age Distribution:**
+     - Create a new column to divide subscribers into age groups:
+       - 18-27
+       - 28-37
+       - 38-47
+       - 48-57
+       - Above 57
+
+## **Churn Analysis Page:**
+   - **Peak Hours Calculation:**
+     ``` 
+     PeakHour = 
+     VAR MaxSessionCount = MAXX(SUMMARIZE('session_data 2', 'session_data 2'[Start Time], 'user_profile_data 2'[UserID],
+     "SessionCount", COUNTROWS('session_data 2')), [SessionCount])
+     RETURN
+     MAXX(FILTER(SUMMARIZE('session_data 2', 'session_data 2'[Start Time], 'user_profile_data 2'[UserID],
+     "SessionCount", COUNTROWS('session_data 2')),[SessionCount] = MaxSessionCount), [Start Time])
+     ```
+
+   - **Customer Behavior Analysis:**
+     - Investigate if users who spend longer hours on the platform perform specific actions or a set of actions.
+
+## Insights and Recommendations
+Here's your content formatted for GitHub Pages:
+
+---
+
+## Churn Analysis
+
+- **Lagos:** Highest churn rate, with 18-27 age group making up 14.77% of churned users.
+- **Nairobi:** Highest churn in the 28-37 age group.
+
+## Session Duration Insights
+
+- **5-52 minutes:** Highest total sessions (626).
+- **Above 196 minutes:** Lowest total sessions (543).
+- **101-148 minutes:** Accounts for 6.50% of total sessions.
+- **5-52 minutes:** Highest average sessions (125.20).
+- **Above 196 minutes:** Lowest average sessions (108.60).
+
+## Platform Performance
+
+- **Mobile App:** Highest total sessions (1,564), followed by Website (1,021) and Smart TV (415).
+- **Music on Mobile App:** 20.03% of total sessions.
+- **Mobile App:** Highest average sessions (312.80), followed by Website (204.20) and Smart TV (83).
+
+## Trends (Sept 1-30, 2023)
+
+- **Share & Save:** Largest increase in sessions (42.86%).
+- **Search and Click:** Largest decrease in sessions (14.29%).
+- **Anomaly:** Search sessions dropped to 5 on Sept 19.
+- **Share & Save:** Sessions increased by 11.11% from Sept 24.
+- **Ratings:** Decreased by 2.59%.
+- **Avg Session Duration:** Decreased by 6.41%, with a steep drop from 124.59 to 115.28 between Sept 19-30.
+
+## Advertising Channels
+
+- **Paid Advertisement:** Highest total sessions (1,544), followed by Social Media (922) and Organic Search (534).
+- **Paid Advertisement:** Highest average sessions (308.80), followed by Social Media (184.40) and Organic Search (106.80).
+
+## Recommendations
+
+- Survey churned users to understand reasons for leaving.
+- Offer loyalty programs or discounts to at-risk users.
+- Improve user onboarding and support.
+- Invest in popular product types to boost engagement.
+- Address issues highlighted by lower user ratings.
+- Use push notifications during low-activity periods to re-engage users.
+- Tailor marketing campaigns to primary demographics.
+- Address demographic-specific issues to improve satisfaction and retention.
+- Consider partnerships appealing to key demographic segments.
