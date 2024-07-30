@@ -2,7 +2,17 @@
 
 Specialization: Customer and Product Analytics
 
-## Business Overview/Problem
+## Company Overview
+### Digital Universe Inc.
+
+
+Digital Universe Inc. is a dynamic player in the digital services industry, positioned at the forefront of innovation and customer service. It offers a comprehensive digital entertainment platform that provides users with access to a vast library of TV shows, music, podcasts, and games. The platform is accessible through web browsers, mobile apps, and smart TVs, ensuring a seamless and immersive entertainment experience. The company's mission to enrich the digital experiences of users worldwide has grown rapidly and amassed a diverse and global user base.
+
+In today's competitive landscape where users' expectations continually evolve, the success and sustainability of the business depend heavily on the ability to understand, adapt to, and exceed users' expectations. The cornerstone of achieving this lies in optimizing user engagement across the full range of digital products and services.
+
+Digital Universe Inc. understands that the key to retaining and attracting more customers is rooted in the capacity to forge meaningful connections with its users. These connections are forged through every interaction a user has with digital products, whether it's exploring a new feature, providing feedback, or simply navigating through the platforms. These interactions are the lifeblood of the business, and their collective impact is what ultimately determines success.
+
+## Business Problem
 
 Digital Universe Inc. is struggling to understand how users interact with their digital products and services. They need to identify patterns, bottlenecks, and areas for improvement to enhance user engagement and experience. Without this understanding, the company risks losing customers to competitors and missing growth opportunities.
 
@@ -33,7 +43,7 @@ Digital Universe Inc. aims to:
 3. Tailor products and services to meet the unique preferences of various user groups.
 4. Continuously improve offerings based on real-time user feedback and data-driven insights.
 
-Scope Image
+![](assets/images/scope.jpg)
 
 ## Data Importation
 **Creating a Date Table in Power BI**
@@ -184,7 +194,8 @@ Scope Image
 - **Design Dashboard:**
    - Use the calculated measures and welcome text to create an engaging and informative dashboard for stakeholders and team members.
 
-Sure, here's a more concise and recruiter-friendly version of your process:
+![](assets/images/overview.jpg)
+
 
 ## **Demography Page:**
    - **Most Active User with Location:**
@@ -223,6 +234,10 @@ Sure, here's a more concise and recruiter-friendly version of your process:
        - 38-47
        - 48-57
        - Above 57
+---
+
+![](assets/images/demog.jpg)
+
 
 ## **Churn Analysis Page:**
    - **Peak Hours Calculation:**
@@ -237,11 +252,10 @@ Sure, here's a more concise and recruiter-friendly version of your process:
 
    - **Customer Behavior Analysis:**
      - Investigate if users who spend longer hours on the platform perform specific actions or a set of actions.
-
-## Insights and Recommendations
-Here's your content formatted for GitHub Pages:
-
 ---
+![](assets/images/churn.jpg)
+---
+## Insights and Recommendations
 
 ## Churn Analysis
 
