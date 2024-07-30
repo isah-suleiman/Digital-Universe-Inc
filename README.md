@@ -2,7 +2,7 @@
 
 Specialization: Customer and Product Analytics
 ---
-![](assets/images/digital-universe-cover.jpg)
+![](assets/images/digital-uni.jpeg)
 
 ## Company Overview
 ### Digital Universe Inc.
